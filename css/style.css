@@ -36,6 +36,196 @@ img {
     margin: 0 auto;
 }
 
+.search{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search input{
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: .3s;
+}
+
+.search input:focus{
+    border-color: #4d7cff;
+    box-shadow: 0 0 5px rgba(77,124,255,.3);
+}
+
+/* CART-KARZINA */
+.cart {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    text-decoration: none;
+    color: #000;
+
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#cart-count {
+    background: crimson;
+    color: white;
+
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 13px;
+}
+
+.back-btn{
+    text-decoration:none;
+    color:#000;
+    font-weight:600;
+}
+
+.cart-page{
+    padding:80px 0;
+}
+
+.cart-card{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+.cart-card img{
+
+    width:220px;
+
+    height:180px;
+
+    object-fit:cover;
+
+}
+
+.cart-info{
+
+    padding:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+}
+
+.delete-btn{
+
+    width:140px;
+
+    padding:10px;
+
+    border:none;
+
+    background:#e53935;
+
+    color:white;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+.delete-btn:hover{
+
+    background:#c62828;
+
+}
+
+.card-image{
+    position: relative;
+}
+
+.like-btn{
+
+    position:absolute;
+
+    top:12px;
+    right:12px;
+
+    width:42px;
+    height:42px;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(255,255,255,.9);
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:.3s;
+}
+
+.like-btn:hover{
+
+    transform:scale(1.1);
+
+}
+
+.like-btn.active{
+
+    background:#ff4d6d;
+
+    color:#fff;
+
+}
+
+.cart-actions{
+
+    margin-top:40px;
+
+    text-align:center;
+
+}
+
+#clear-cart{
+
+    padding:12px 25px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:#e53935;
+
+    color:white;
+
+    font-size:16px;
+
+}
 
 /* HEADER */
 
@@ -54,6 +244,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 
@@ -154,6 +345,104 @@ img {
 }
 
 .nav.active {}
+
+/* KARZINA */
+
+.cart{
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    position:relative;
+
+}
+
+#cart-count{
+
+    background:red;
+
+    color:white;
+
+    border-radius:50%;
+
+    padding:2px 7px;
+
+    font-size:12px;
+
+}
+
+.cart-window{
+
+    position:fixed;
+
+    right:20px;
+
+    top:90px;
+
+    width:350px;
+
+    max-height:500px;
+
+    overflow:auto;
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:20px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+
+    display:none;
+
+    z-index:999;
+
+}
+
+.cart-window.show{
+
+    display:block;
+
+}
+
+.cart-item{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.like-btn{
+
+    margin:15px;
+
+    cursor:pointer;
+
+    border:none;
+
+    background:#eee;
+
+    padding:10px 16px;
+
+    border-radius:6px;
+
+    transition:.3s;
+
+}
+
+.like-btn.active{
+
+    background:#ff4d6d;
+
+    color:white;
+
+}
 
 /* HERO */
 
@@ -1002,4 +1291,80 @@ img {
 .animate.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* GALLERY */
+
+@media (max-width: 768px) {
+    .gallery-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* SEARCH */
+
+@media (max-width: 768px){
+
+    .header-content{
+        flex-wrap: wrap;
+    }
+
+    .logo{
+        order: 1;
+    }
+
+    .burger{
+        order: 2;
+    }
+
+    .search{
+        order: 3;
+        width: 100%;
+    }
+
+    .search input{
+        max-width: 100%;
+    }
+
+    .nav{
+        order: 4;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .search {
+        width: 100%;
+    }
+
+    .search input {
+        width: 100%;
+        max-width: 100%;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+}
+
+/* CART-KARZINA */
+
+.cart-card{
+
+    flex-direction:column;
+
+}
+
+.cart-card img{
+
+    width:100%;
+
+    height:220px;
+
 }
