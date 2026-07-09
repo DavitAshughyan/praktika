@@ -1,23 +1,28 @@
 const cartItems = document.querySelector("#cart-items");
+const cartTotal = document.querySelector("#cart-total");
 
-let favorites =
-    JSON.parse(localStorage.getItem("favorites")) || [];
+let cart =
+    JSON.parse(localStorage.getItem("cart")) || [];
 
 function renderCart() {
 
     cartItems.innerHTML = "";
 
-    if (favorites.length === 0) {
+    if (cart.length === 0) {
 
-        cartItems.innerHTML = `
-            <h2>Корзина пуста</h2>
-            <p>Добавьте понравившиеся товары на главной странице.</p>
-        `;
+    cartItems.innerHTML = `
+        <h2>Корзина пуста</h2>
+        <p>Добавьте товары на главной странице.</p>
+    `;
 
-        return;
+    if(cartTotal){
+        cartTotal.textContent = "Итого: $0.00";
     }
 
-    favorites.forEach((item, index) => {
+    return;
+}
+
+    cart.forEach((item, index) => {
 
         cartItems.insertAdjacentHTML(
             "beforeend",
@@ -30,9 +35,47 @@ function renderCart() {
 
                     <h3>${item.title}</h3>
 
-                    <p>${item.text}</p>
+                    <p>${item.description}</p>
 
-                    <button class="delete-btn" data-index="${index}">
+                    <p>
+                        Цена: $${item.price}
+                    </p>
+
+                    <p>
+                        Количество: ${item.quantity}
+                    </p>
+
+                    <p>
+                        Сумма:
+                        $${(item.price * item.quantity).toFixed(2)}
+                    </p>
+
+                    <div class="quantity">
+
+                        <button 
+                        class="minus-btn"
+                        data-index="${index}">
+                            -
+                        </button>
+
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+
+                        <button 
+                        class="plus-btn"
+                        data-index="${index}">
+                            +
+                        </button>
+
+                    </div>
+
+
+                    <button 
+                    class="delete-btn" 
+                    data-index="${index}">
                         Удалить
                     </button>
 
@@ -45,6 +88,93 @@ function renderCart() {
     });
 
     addDeleteEvents();
+    addQuantityEvents();
+    updateTotal();
+
+}
+
+function addQuantityEvents(){
+
+
+    document.querySelectorAll(".plus-btn")
+    .forEach(button=>{
+
+
+        button.onclick = ()=>{
+
+
+            const index = button.dataset.index;
+
+
+            cart[index].quantity++;
+
+
+            saveCart();
+
+
+            function updateTotal(){
+
+                const total = cart.reduce(
+                    (sum,item)=> sum + item.price * item.quantity,
+                    0
+                );
+
+
+                if(cartTotal){
+
+                    cartTotal.textContent =
+                    `Итого: $${total.toFixed(2)}`;
+
+                }
+
+}
+
+
+            renderCart();
+
+        };
+
+
+    });
+
+
+
+    document.querySelectorAll(".minus-btn")
+    .forEach(button=>{
+
+
+        button.onclick = ()=>{
+
+
+            const index = button.dataset.index;
+
+
+            if(cart[index].quantity > 1){
+
+                cart[index].quantity--;
+
+            }
+
+
+            saveCart();
+
+
+            renderCart();
+
+        };
+
+
+    });
+
+
+}
+
+function saveCart(){
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
 
 }
 
@@ -52,24 +182,30 @@ function addDeleteEvents() {
 
     const buttons = document.querySelectorAll(".delete-btn");
 
+
     buttons.forEach(button => {
 
-        button.addEventListener("click", () => {
 
-            const index = button.dataset.index;
+        button.onclick = () => {
 
-            favorites.splice(index, 1);
 
-            localStorage.setItem(
-                "favorites",
-                JSON.stringify(favorites)
-            );
+            const index = Number(button.dataset.index);
+
+
+            cart.splice(index, 1);
+
+
+            saveCart();
+
 
             renderCart();
 
-        });
+
+        };
+
 
     });
+
 
 }
 
@@ -77,20 +213,29 @@ renderCart();
 
 const clearBtn = document.querySelector("#clear-cart");
 
-clearBtn.addEventListener("click", () => {
 
-    favorites = [];
+if (clearBtn) {
 
-    localStorage.removeItem("favorites");
+    clearBtn.addEventListener("click", () => {
 
-    renderCart();
+        cart = [];
 
-});
+        localStorage.removeItem("cart");
+
+        renderCart();
+
+    });
+
+}
 
 const backBtn = document.querySelector(".back-btn");
 
-backBtn.addEventListener("click", () => {
+if (backBtn) {
 
-    history.back();
+    backBtn.addEventListener("click", () => {
 
-});
+        history.back();
+
+    });
+
+}

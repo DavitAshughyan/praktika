@@ -57,54 +57,9 @@ animatedElements.forEach(element => {
     observer.observe(element);
 });
 
-const cards = [
-  {
-    image: "img/lerner.png",
-    title: "Горы",
-    text: "Живописные горные пейзажи с чистым воздухом."
-  },
-  {
-    image: "img/covap.jpg",
-    title: "Море",
-    text: "Лазурное побережье с теплой водой и песчаным пляжем."
-  },
-  {
-    image: "img/antar.jpg",
-    title: "Лес",
-    text: "Зеленый лес с высокими деревьями и свежей природой."
-  },
-  {
-    image: "img/lich.jpg",
-    title: "Озеро",
-    text: "Спокойное озеро, окруженное живописными холмами."
-  },
-  {
-    image: "img/mayramut.jpg",
-    title: "Закат",
-    text: "Яркие краски вечернего неба на закате."
-  },
-  {
-    image: "img/tiezerq.jpg",
-    title: "Космос",
-    text: "Звезды, планеты и бескрайняя Вселенная."
-  },
-  {
-    image: "img/anapat.jpg",
-    title: "Пустыня",
-    text: "Бескрайние песчаные дюны под ярким солнцем."
-  },
-  {
-    image: "img/qaxaq.jpg",
-    title: "Город",
-    text: "Современный мегаполис с ночными огнями."
-  },
-  {
-    image: "img/caxikner.png",
-    title: "Цветы",
-    text: "Красочные цветы, распустившиеся весной."
-  },
-  
-];
+const API = "https://fakestoreapi.com/products";
+
+let cards = [];
 
 const gallery = document.querySelector(".gallery-content");
 const search = document.querySelector("#search");
@@ -112,51 +67,93 @@ const search = document.querySelector("#search");
 let favorites =
 JSON.parse(localStorage.getItem("favorites")) || [];
 
+let cart =
+JSON.parse(localStorage.getItem("cart")) || [];
+
 function updateCartCount() {
 
     const count = document.querySelector("#cart-count");
 
     if (count) {
-        count.textContent = favorites.length;
+
+        const total = cart.reduce(
+            (sum,item)=>sum + item.quantity,
+            0
+        );
+
+        count.textContent = total;
+
+    }
+}
+
+async function loadProducts() {
+
+    try {
+
+        const response = await fetch(API);
+
+        if (!response.ok) {
+            throw new Error("Ошибка загрузки");
+        }
+
+        cards = await response.json();
+
+        renderCards(cards);
+
+        updateCartCount();
+
+    } catch (error) {
+
+        console.log(error);
+
     }
 
 }
 
-function renderCards(arr){
+function renderCards(arr) {
 
     gallery.innerHTML = "";
 
-    arr.forEach(card=>{
+    arr.forEach(card => {
 
-        const liked = favorites.some(item=>item.title===card.title);
+        const liked = favorites.some(item => item.id === card.id);
 
-        gallery.insertAdjacentHTML("beforeend",`
+        gallery.insertAdjacentHTML("beforeend", `
 
         <article class="card">
 
-    <div class="card-image">
+            <div class="card-image">
 
-        <img src="${card.image}" alt="${card.title}">
+                <img src="${card.image}" alt="${card.title}">
 
-        <button
-            class="like-btn ${liked ? "active" : ""}"
-            data-title="${card.title}">
-            ❤
-        </button>
+                <button
+                    class="like-btn ${liked ? "active" : ""}"
+                    data-id="${card.id}">
+                    ❤
+                </button>
 
-    </div>
+            </div>
 
-    <h3>${card.title}</h3>
+            <h3>${card.title}</h3>
 
-    <p>${card.text}</p>
+            <p>${card.description}</p>
 
-</article>
+            <h4>$${card.price}</h4>
+
+            <button 
+              class="cart-btn"
+              data-id="${card.id}">
+              В корзину
+            </button>
+
+        </article>
 
         `);
 
     });
 
     addEvents();
+    addCartEvents();
 
 }
 
@@ -167,32 +164,33 @@ search.addEventListener("input", function () {
 
     const filteredCards = cards.filter(card =>
         card.title.toLowerCase().includes(value) ||
-        card.text.toLowerCase().includes(value)
+        card.description.toLowerCase().includes(value) ||
+        card.category.toLowerCase().includes(value)
     );
 
     renderCards(filteredCards);
 
 });
 
-function addEvents(){
+function addEvents() {
 
-    document.querySelectorAll(".like-btn").forEach(button=>{
+    document.querySelectorAll(".like-btn").forEach(button => {
 
-        button.onclick=()=>{
+        button.onclick = () => {
 
-            const title=button.dataset.title;
+            const id = Number(button.dataset.id);
 
-            const product=cards.find(card=>card.title===title);
+            const product = cards.find(card => card.id === id);
 
-            const index=favorites.findIndex(item=>item.title===title);
+            const index = favorites.findIndex(item => item.id === id);
 
-            if(index===-1){
+            if (index === -1) {
 
                 favorites.push(product);
 
-            }else{
+            } else {
 
-                favorites.splice(index,1);
+                favorites.splice(index, 1);
 
             }
 
@@ -211,59 +209,41 @@ function addEvents(){
 
 }
 
+function addCartEvents(){
 
-/* function updateCart(){
+    document.querySelectorAll(".cart-btn").forEach(button=>{
 
-    document.querySelector("#cart-count").textContent =
-    favorites.length;
+        button.onclick = ()=>{
 
-    const items=document.querySelector("#cart-items");
+            const id = Number(button.dataset.id);
 
-    items.innerHTML="";
+            const product = cards.find(card=>card.id === id);
 
-    favorites.forEach(item=>{
 
-        items.insertAdjacentHTML("beforeend",`
+            const existProduct = cart.find(item => item.id === id);
 
-        <div class="cart-item">
 
-            <img src="${item.image}" width="60">
+            if (existProduct) {
 
-            <div>
+                existProduct.quantity++;
 
-                <h4>${item.title}</h4>
+            } else {
 
-                <p>${item.text}</p>
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
 
-            </div>
+            }
 
-            <button class="remove"
-                data-title="${item.title}">
-                ✖
-            </button>
-
-        </div>
-
-        `);
-
-    });
-
-    document.querySelectorAll(".remove").forEach(btn=>{
-
-        btn.onclick=()=>{
-
-            favorites=favorites.filter(item=>
-                item.title!==btn.dataset.title
-            );
 
             localStorage.setItem(
-                "favorites",
-                JSON.stringify(favorites)
+                "cart",
+                JSON.stringify(cart)
             );
 
-            updateCart();
 
-            renderCards(cards);
+            updateCartCount();
 
         };
 
@@ -271,30 +251,7 @@ function addEvents(){
 
 }
 
-const cart=document.querySelector(".cart");
 
-const cartWindow=document.querySelector(".cart-window");
 
-cart.onclick=()=>{
-
-    cartWindow.classList.toggle("show");
-
-} */
-
-renderCards(cards);
-
-function updateCartCount() {
-
-    document.querySelector("#cart-count").textContent =
-        favorites.length;
-
-}
-
-localStorage.setItem(
-    "favorites",
-    JSON.stringify(favorites)
-);
-
-renderCards(cards);
-
+loadProducts();
 updateCartCount();
