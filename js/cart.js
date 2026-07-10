@@ -8,9 +8,11 @@ function renderCart() {
 
   if (cart.length === 0) {
     cartItems.innerHTML = `
+    <div class="empty-cart">
         <h2>Корзина пуста</h2>
         <p>Добавьте товары на главной странице.</p>
-    `;
+    </div>
+`;
 
     if (cartTotal) {
       cartTotal.textContent = "Итого: $0.00";
@@ -46,34 +48,30 @@ function renderCart() {
                         $${(item.price * item.quantity).toFixed(2)}
                     </p>
 
-                    <div class="quantity">
+                    <div class="cart-controls">
 
-                        <button 
-                        class="minus-btn"
-                        data-index="${index}">
-                            -
-                        </button>
+                        <div class="quantity">
 
+                            <button class="minus-btn" data-index="${index}">
+                                −
+                            </button>
 
-                        <span>
-                            ${item.quantity}
-                        </span>
+                            <span class="quantity-value">
+                                ${item.quantity}
+                            </span>
 
+                            <button class="plus-btn" data-index="${index}">
+                                +
+                            </button>
 
-                        <button 
-                        class="plus-btn"
-                        data-index="${index}">
-                            +
+                        </div>
+
+                        <button class="delete-btn" data-index="${index}">
+                            <span class="delete-icon">🗑</span>
+                            Удалить
                         </button>
 
                     </div>
-
-
-                    <button 
-                    class="delete-btn" 
-                    data-index="${index}">
-                        Удалить
-                    </button>
 
                 </div>
 

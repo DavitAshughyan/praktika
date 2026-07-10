@@ -109,17 +109,23 @@ function renderCards(arr) {
 
             </div>
 
-            <h3>${card.title}</h3>
+           <h3>${card.title}</h3>
 
             <p>${card.description}</p>
 
-            <h4>$${card.price}</h4>
+            <div class="card-bottom">
 
-            <button 
-              class="cart-btn"
-              data-id="${card.id}">
-              В корзину
-            </button>
+                <h4 class="price">
+                    $${card.price}
+                </h4>
+
+                <button
+                    class="cart-btn"
+                    data-id="${card.id}">
+                    🛒 В корзину
+                </button>
+
+            </div>
 
         </article>
 
