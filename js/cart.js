@@ -9,13 +9,13 @@ function renderCart() {
   if (cart.length === 0) {
     cartItems.innerHTML = `
     <div class="empty-cart">
-        <h2>Корзина пуста</h2>
-        <p>Добавьте товары на главной странице.</p>
+        <h2>Your cart is empty</h2>
+        <p>Add products from the home page.</p>
     </div>
 `;
 
     if (cartTotal) {
-      cartTotal.textContent = "Итого: $0.00";
+      cartTotal.textContent = "Total: $0.00";
     }
 
     return;
@@ -36,15 +36,15 @@ function renderCart() {
                     <p>${item.description}</p>
 
                     <p>
-                        Цена: $${item.price}
+                        Price: $${item.price}
                     </p>
 
                     <p>
-                        Количество: ${item.quantity}
+                        Quantity: ${item.quantity}
                     </p>
 
                     <p>
-                        Сумма:
+                        Subtotal:
                         $${(item.price * item.quantity).toFixed(2)}
                     </p>
 
@@ -68,7 +68,7 @@ function renderCart() {
 
                         <button class="delete-btn" data-index="${index}">
                             <span class="delete-icon">🗑</span>
-                            Удалить
+                            Remove
                         </button>
 
                     </div>
@@ -89,7 +89,7 @@ function updateTotal() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cartTotal) {
-    cartTotal.textContent = `Итого: $${total.toFixed(2)}`;
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
   }
 }
 

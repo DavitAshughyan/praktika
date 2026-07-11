@@ -56,11 +56,34 @@ img {
   box-shadow: 0 0 5px rgba(77, 124, 255, 0.3);
 }
 
+/* CART-IZBRANNOE */
+
+.favorites {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 50px;
+    height: 45px;
+
+    padding: 0 15px;
+
+    border-radius: 8px;
+    background: #222;
+    color: #fff;
+    text-decoration: none;
+
+    transition: .3s;
+}
+
+.favorites:hover {
+    background: #444;
+}
+
 /* CART-KARZINA */
 .cart {
   display: flex;
   align-items: center;
-  gap: 6px;
 
   text-decoration: none;
   color: #000;
@@ -109,6 +132,7 @@ img {
   overflow: hidden;
 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
 }
 
 .cart-card img {
@@ -846,6 +870,8 @@ img {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -865,6 +891,15 @@ img {
 
 .card p {
   margin: 0 15px 20px;
+  flex: 1;
+}
+
+.card-bottom {
+  margin-top: auto; /* прижимает блок к низу */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px 20px;
 }
 
 /* PROJECTS */

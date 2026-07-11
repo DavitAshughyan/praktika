@@ -122,7 +122,7 @@ function renderCards(arr) {
                 <button
                     class="cart-btn"
                     data-id="${card.id}">
-                    🛒 В корзину
+                    🛒 Add to Cart
                 </button>
 
             </div>
@@ -136,7 +136,6 @@ function renderCards(arr) {
   addEvents();
   addCartEvents();
 }
-
 // search
 search.addEventListener("input", function () {
   const value = this.value.toLowerCase().trim();
@@ -167,6 +166,7 @@ function addEvents() {
       }
 
       localStorage.setItem("favorites", JSON.stringify(favorites));
+      updateFavoritesCount();
 
       renderCards(cards);
 
@@ -202,3 +202,15 @@ function addCartEvents() {
 
 loadProducts();
 updateCartCount();
+
+function updateFavoritesCount() {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    const favoritesCount = document.querySelector("#favorites-count");
+
+    if (favoritesCount) {
+        favoritesCount.textContent = favorites.length;
+    }
+}
+
+updateFavoritesCount();
