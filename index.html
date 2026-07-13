@@ -18,7 +18,11 @@
                 </div>
 
                 <div class="search">
-                    <input type="text" id="search" placeholder="search...">
+                    <input 
+                    type="text" 
+                    id="search" 
+                    data-placeholder="search"
+                    placeholder="search...">
                 </div>
 
                 <a href="favorites.html" class="favorites">
@@ -29,14 +33,18 @@
                     🛒 <span id="cart-count">0</span>
                 </a>
 
+                <select id="language-select">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="ru">🇷🇺 Русский</option>
+                </select>
+
                 <nav class="nav">
                     <ul class="nav-list">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#home" data-lang="home">Home</a></li>
+                        <li><a href="#about" data-lang="about">About</a></li>
+                        <li><a href="#projects" data-lang="projects">Projects</a></li>
+                        <li><a href="#contact" data-lang="contact">Contact</a></li>
                     </ul>
-
                 </nav>
 
                 <button class="burger">
@@ -56,10 +64,18 @@
     <section class="hero animate">
         <div class="container">
             <div class="hero-content">
-                <h1>I'm John.<br>I build beautiful responsive websites.</h1>
+                <h1 data-lang="heroTitle">
+                    I'm John.<br>
+                    I build beautiful responsive websites.
+                </h1>
                 <div class="hero-buttons">
-                    <a href="#" class="btn">View Portfolio</a>
-                    <a href="#" class="btn btn-outline">Hire Me</a>
+                    <a href="#" class="btn" data-lang="viewPortfolio">
+                        View Portfolio
+                    </a>
+
+                    <a href="#" class="btn btn-outline" data-lang="hireMe">
+                        Hire Me
+                    </a>
                 </div>
             </div>
         </div>
@@ -71,12 +87,14 @@
             <div class="about-content">
 
                 <div class="about-left">
-                    <h2>I can help.</h2>
+                    <h2 data-lang="aboutTitle">
+                        I can help.
+                    </h2>
                 </div>
 
                 <div class="about-right">
 
-                    <p>
+                    <p data-lang="aboutText">
                         Lorem ipsum dolor sit amet, consectetur adipiscing
                         elit.
                         Suspendisse varius enim in eros elementum tristique.
@@ -91,19 +109,19 @@
                     <div class="skills">
 
                         <div class="skill web">
-                            <span>WEB DESIGN</span>
+                            <span data-lang="webDesign">WEB DESIGN</span>
                         </div>
 
                         <div class="skill responsive">
-                            <span>RESPONSIVE DESIGN</span>
+                            <span data-lang="responsive">RESPONSIVE DESIGN</span>
                         </div>
 
                         <div class="skill ui">
-                            <span>UI DESIGN</span>
+                            <span data-lang="uiDesign">UI DESIGN</span>
                         </div>
 
                         <div class="skill mobile">
-                            <span>MOBILE APPS</span>
+                            <span data-lang="mobileApps">MOBILE APPS</span>
                         </div>
 
                     </div>
@@ -122,78 +140,80 @@
                 <input
                     type="number"
                     id="min-price"
+                    data-placeholder="priceFrom"
                     placeholder="Price from">
 
                 <input
                     type="number"
                     id="max-price"
+                    data-placeholder="priceTo"
                     placeholder="Price to">
 
                     <select id="category-filter">
 
-                        <option value="all">
-                            All categories
+                        <option value="all" data-lang="allCategories">
+                            📦 All categories
                         </option>
 
-                        <option value="electronics">
-                            Electronics
+                        <option value="electronics" data-lang="electronics">
+                            📱 Electronics
                         </option>
 
-                        <option value="jewelery">
-                            Jewelery
+                        <option value="jewelery" data-lang="jewelery">
+                            💍 Jewelery
                         </option>
 
-                        <option value="men's clothing">
-                            Men's clothing
+                        <option value="men's clothing" data-lang="menClothing">
+                            👔 Men's clothing
                         </option>
 
-                        <option value="women's clothing">
-                            Women's clothing
+                        <option value="women's clothing" data-lang="womenClothing">
+                            👗 Women's clothing
                         </option>
 
                     </select>
 
                     <select id="sort-filter">
 
-                        <option value="default">
-                            Default
+                        <option value="default" data-lang="defaultSort">
+                            🔄 Default
                         </option>
 
-                        <option value="price-asc">
-                            Price: Low → High
+                        <option value="price-asc" data-lang="priceAsc">
+                            📈 Price: Low → High
                         </option>
 
-                        <option value="price-desc">
-                            Price: High → Low
+                        <option value="price-desc" data-lang="priceDesc">
+                            📉 Price: High → Low
                         </option>
 
-                        <option value="rating-desc">
-                            Rating: High → Low
+                        <option value="rating-desc" data-lang="ratingDesc">
+                            ⭐ Rating: High → Low
                         </option>
 
                     </select>
 
                     <select id="rating-filter">
 
-                        <option value="0">
-                        All ratings
+                        <option value="0" data-lang="allRatings">
+                            ⭐ All ratings
                         </option>
 
-                        <option value="4">
-                        4+ stars
+                        <option value="4" data-lang="fourStars">
+                            4+ ⭐⭐⭐⭐
                         </option>
 
-                        <option value="3">
-                        3+ stars
+                        <option value="3" data-lang="threeStars">
+                            3+ ⭐⭐⭐
                         </option>
 
-                        <option value="2">
-                        2+ stars
+                        <option value="2" data-lang="twoStars">
+                            2+ ⭐⭐
                         </option>
 
                     </select>
 
-                <button id="reset-filters">
+                <button id="reset-filters" data-lang="reset">
                     Reset
                 </button>
 
@@ -208,7 +228,7 @@
 
         <div class="container">
             <div class="projects-header">
-                <h2>My Projects</h2>
+                <h2 data-lang="projectsTitle">My Projects</h2>
             </div>
         </div>
 
@@ -223,7 +243,7 @@
 
                     <div class="project-info">
                         <h3>Bingo</h3>
-                        <p>PHOTO</p>
+                        <p data-lang="photo">PHOTO</p>
                     </div>
 
                 </div>
@@ -234,7 +254,7 @@
 
                     <div class="project-info">
                         <h3>Field</h3>
-                        <p>PHOTO</p>
+                        <p data-lang="photo">PHOTO</p>
                     </div>
 
                 </div>
@@ -245,7 +265,7 @@
 
                     <div class="project-info">
                         <h3>Bridge</h3>
-                        <p>ILLUSTRATION</p>
+                        <p data-lang="illustration">ILLUSTRATION</p>
                     </div>
 
                 </div>
@@ -261,7 +281,7 @@
 
                     <div class="project-info">
                         <h3>Raybans</h3>
-                        <p>WEBSITE</p>
+                        <p data-lang="website">WEBSITE</p>
                     </div>
 
                 </div>
@@ -272,7 +292,7 @@
 
                     <div class="project-info">
                         <h3>Sand</h3>
-                        <p>WEBSITE</p>
+                        <p data-lang="website">WEBSITE</p>
                     </div>
 
                 </div>
@@ -288,7 +308,7 @@
 
                     <div class="project-info">
                         <h3>People</h3>
-                        <p>WEBSITE</p>
+                        <p data-lang="website">WEBSITE</p>
                     </div>
 
                 </div>
@@ -298,7 +318,7 @@
                     <img src="img/project7.png" alt>
                     <div class="project-info">
                         <h3>Beach</h3>
-                        <p>AIR PRINT</p>
+                        <p data-lang="airPrint">AIR PRINT</p>
                     </div>
 
                 </div>
@@ -309,7 +329,7 @@
 
                     <div class="project-info">
                         <h3>Lake</h3>
-                        <p>WEBSITE</p>
+                        <p data-lang="website">WEBSITE</p>
                     </div>
 
                 </div>
@@ -325,7 +345,7 @@
 
                     <div class="project-info">
                         <h3>Sky</h3>
-                        <p>WEBSITE</p>
+                        <p data-lang="website">WEBSITE</p>
                     </div>
 
                 </div>
@@ -336,7 +356,7 @@
 
                     <div class="project-info">
                         <h3>Ocean</h3>
-                        <p>WEBSITE</p>
+                        <p data-lang="website">WEBSITE</p>
                     </div>
 
                 </div>
@@ -427,6 +447,8 @@
                     </div>
 
                 </div>
+
+                <script src="js/language.js"></script>
 
                 <script src="js/script.js"></script>
 

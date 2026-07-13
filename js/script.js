@@ -565,3 +565,4 @@ function updateFavoritesCount() {
 }
 
 updateFavoritesCount();
+
