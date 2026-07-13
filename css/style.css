@@ -902,6 +902,162 @@ img {
   padding: 0 15px 20px;
 }
 
+/* FILTRER */
+
+.filters{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:30px 0;
+    flex-wrap:wrap;
+}
+
+.filters input{
+
+    width:170px;
+    padding:12px 15px;
+
+    border:1px solid #ddd;
+    border-radius:10px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.3s;
+}
+
+.filters input:focus{
+
+    border-color:#2d89ef;
+
+    box-shadow:0 0 8px rgba(45,137,239,.3);
+
+}
+
+.filters button{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#444;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.filters button:hover{
+
+    background:#222;
+
+}
+
+/* ASTXER EV GNAHATUM */
+
+.rating-box{
+
+    margin:15px 0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap: 15px;
+
+}
+
+.api-rating{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    width:100%;
+
+    color:#f5b301;
+}
+
+.rating-number{
+
+    font-size:14px;
+    margin-left:6px;
+    color:#777;
+
+}
+
+.user-stars{
+
+    display:flex;
+
+    justify-content:center;
+    
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:5px;
+
+}
+
+.user-star{
+
+    font-size:22px;
+
+    color:#d4d4d4;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.user-star.active{
+
+    color:gold;
+
+}
+
+.user-star:hover{
+
+    transform:scale(1.15);
+
+}
+
+.your-rating-text{
+
+    font-size:13px;
+
+    color:#777;
+
+    margin-right:8px;
+
+}
+
+.user-rating-title{
+
+    width:100%;
+
+    font-size:13px;
+
+    color:#777;
+    
+    text-align:center;
+
+    margin-bottom:2px;
+
+}
+
 /* PROJECTS */
 
 .projects {
