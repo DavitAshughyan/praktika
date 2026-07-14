@@ -111,6 +111,7 @@ async function loadProducts() {
     }
 
     cards = await response.json();
+    console.log(cards);
 
     applyFilters();
 
@@ -145,12 +146,16 @@ function createRatingStars(rate) {
 
 function createUserStars(id) {
 
+    const lang = localStorage.getItem("language") || "en";
+
+    const t = translations[lang];
+
     const current = ratings[id] || 0;
 
     let html = `
 
         <div class="user-rating-title">
-            ${current === 0 ? "Rate this product" : "Your rating"}
+            ${current === 0 ? t.rateProduct : t.yourRating}
         </div>
 
         <div class="stars-container">
@@ -180,10 +185,70 @@ function createUserStars(id) {
 
 }
 
+function getProductText(card, field, lang) {
+
+    if (
+        productTranslations[card.id] &&
+        productTranslations[card.id][field] &&
+        productTranslations[card.id][field][lang]
+    ) {
+        return productTranslations[card.id][field][lang];
+    }
+
+
+    return card[field];
+
+}
+
+function getCategoryText(category, lang) {
+
+    const categories = {
+
+        "men's clothing": {
+            ru: "Мужская одежда",
+            hy: "Տղամարդու հագուստ"
+        },
+
+        "women's clothing": {
+            ru: "Женская одежда",
+            hy: "Կանացի հագուստ"
+        },
+
+        "electronics": {
+            ru: "Электроника",
+            hy: "Էլեկտրոնիկա"
+        },
+
+        "jewelery": {
+            ru: "Украшения",
+            hy: "Զարդեր"
+        }
+
+    };
+
+
+    if (
+        categories[category] &&
+        categories[category][lang]
+    ) {
+        return categories[category][lang];
+    }
+
+
+    return category;
+
+}
+
 function renderCards(arr) {
+
   gallery.innerHTML = "";
 
+  const lang = localStorage.getItem("language") || "en";
+
+  const t = translations[lang];
+
   arr.forEach((card) => {
+    const productLang = productTranslations[card.id];
     const liked = favorites.some((item) => item.id === card.id);
 
     gallery.insertAdjacentHTML(
@@ -204,9 +269,14 @@ function renderCards(arr) {
 
             </div>
 
-           <h3>${card.title}</h3>
+           <h3>
+              ${getProductText(card, "title", lang)}
+          </h3>
 
-            <p>${card.description}</p>
+
+          <p>
+              ${getProductText(card, "description", lang)}
+          </p>
 
             <div class="card-bottom">
 
@@ -240,7 +310,7 @@ function renderCards(arr) {
                 <button
                     class="cart-btn"
                     data-id="${card.id}">
-                    🛒 Add to Cart
+                    🛒 ${t.addToCart}
                 </button>
 
             </div>
@@ -261,11 +331,24 @@ function applyFilters() {
   let result = [...cards];
 
   // search
-  result = result.filter(card =>
-    card.title.toLowerCase().includes(filters.search) ||
-    card.description.toLowerCase().includes(filters.search) ||
-    card.category.toLowerCase().includes(filters.search)
-  );
+  const lang = localStorage.getItem("language") || "en";
+
+  result = result.filter(card => {
+
+      const title = getProductText(card, "title", lang).toLowerCase();
+
+      const description = getProductText(card, "description", lang).toLowerCase();
+
+      const category = getCategoryText(card.category, lang).toLowerCase();
+
+
+      return (
+          title.includes(filters.search) ||
+          description.includes(filters.search) ||
+          category.includes(filters.search)
+      );
+
+  });
 
   // price
     result = result.filter(card => {
@@ -565,4 +648,11 @@ function updateFavoritesCount() {
 }
 
 updateFavoritesCount();
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26372431c2618014ad0f4ff87f803d5ac793d5b7
+>>>>>>> Stashed changes

@@ -3,13 +3,18 @@ const favoritesItems = document.querySelector("#favorites-items");
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 function renderFavorites() {
+
+  const lang = localStorage.getItem("language") || "en";
+
+  const t = translations[lang];
+
   favoritesItems.innerHTML = "";
 
   if (favorites.length === 0) {
     favoritesItems.innerHTML = `
       <div class="empty-cart">
-        <h2>No favorites yet</h2>
-        <p>Add products by clicking ❤️.</p>
+        <h2>${translations[lang].emptyFavorites}</h2>
+        <p>${translations[lang].addProducts}</p>
       </div>
     `;
     return;
@@ -29,10 +34,10 @@ function renderFavorites() {
 
           <p>${item.description}</p>
 
-          <p>Price: $${item.price}</p>
+          <p>${t.price} $${item.price}</p>
 
           <button class="delete-btn" data-index="${index}">
-            🗑 Remove
+            🗑 ${t.remove}
           </button>
 
         </div>

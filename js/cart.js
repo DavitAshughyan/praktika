@@ -1,5 +1,6 @@
 const cartItems = document.querySelector("#cart-items");
 const cartTotal = document.querySelector("#cart-total");
+const currentLang = localStorage.getItem("language") || "en";
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -9,13 +10,13 @@ function renderCart() {
   if (cart.length === 0) {
     cartItems.innerHTML = `
     <div class="empty-cart">
-        <h2>Your cart is empty</h2>
-        <p>Add products from the home page.</p>
+        <h2>${translations[currentLang].emptyCart}</h2>
+        <p>${translations[currentLang].addProducts}</p>
     </div>
 `;
 
     if (cartTotal) {
-      cartTotal.textContent = "Total: $0.00";
+      cartTotal.textContent = `${translations[currentLang].total} $0.00`;
     }
 
     return;
@@ -36,15 +37,15 @@ function renderCart() {
                     <p>${item.description}</p>
 
                     <p>
-                        Price: $${item.price}
+                        ${translations[currentLang].price} $${item.price}
                     </p>
 
                     <p>
-                        Quantity: ${item.quantity}
+                        ${translations[currentLang].quantity} ${item.quantity}
                     </p>
 
                     <p>
-                        Subtotal:
+                        ${translations[currentLang].subtotal}
                         $${(item.price * item.quantity).toFixed(2)}
                     </p>
 
@@ -68,7 +69,7 @@ function renderCart() {
 
                         <button class="delete-btn" data-index="${index}">
                             <span class="delete-icon">🗑</span>
-                            Remove
+                            ${translations[currentLang].remove}
                         </button>
 
                     </div>
@@ -89,7 +90,7 @@ function updateTotal() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cartTotal) {
-    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+    cartTotal.textContent = `${translations[currentLang].total} $${total.toFixed(2)}`;
   }
 }
 
